@@ -42,7 +42,7 @@ def get_macd_indicator(client, symbol):
         close_df = pd.DataFrame(close_vals)
         ema12 = close_df.ewm(span=12).mean()
         ema26 = close_df.ewm(span=26).mean()
-        macd = ema26 - ema12
+        macd = ema12 - ema26
         signal = macd.ewm(span=9).mean()
 
         macd_val = macd.values.flatten()
@@ -135,9 +135,10 @@ def main():
 
                 # Try to get last price from trade history
                 try:
-                    my_trades = client.get_my_trades(symbol=trade_pair, limit=1)
+                    # Fetch more trades to ensure we get the latest one
+                    my_trades = client.get_my_trades(symbol=trade_pair, limit=50)
                     if my_trades:
-                        last_price = float(my_trades[0]['price'])
+                        last_price = float(my_trades[-1]['price'])
                     else:
                         last_price = current_price
                 except Exception as e:
