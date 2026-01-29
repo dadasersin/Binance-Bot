@@ -1,15 +1,17 @@
 databases:
   - name: n8n-db
-    plan: free # Change to starter if you need more than 90 days or persistence beyond free tier
+    plan: free
     databaseName: n8n
     user: n8n_user
 
 services:
   - type: web
     name: n8n
-    plan: free # Change to a paid plan for better performance and to avoid spin-down
+    plan: free
     runtime: docker
     envVars:
+      - key: N8N_PORT
+        value: 10000
       - key: DB_TYPE
         value: postgresdb
       - key: DB_POSTGRESDB_HOST
@@ -34,8 +36,8 @@ services:
           property: password
       - key: N8N_ENCRYPTION_KEY
         generateValue: true
-      - key: N8N_HOST
-        sync: false # Set this to your service URL after deployment
+      - key: N8N_PROTOCOL
+        value: https
     disk:
       name: n8n-data
       mountPath: /home/node/.n8n
