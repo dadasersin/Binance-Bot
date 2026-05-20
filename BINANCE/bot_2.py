@@ -3,6 +3,7 @@
 # RSI is in range and the price is higher than buy price
 
 import time
+import os
 # pip install python-binance
 from binance.client import Client
 from binance.enums import *
@@ -38,8 +39,8 @@ def computeRSI (data, time_window):
 ##################################################
 
 # Authenticate to Binance
-api_key = ''
-api_secret = ''
+api_key = os.getenv('BINANCE_API_KEY', '')
+api_secret = os.getenv('BINANCE_API_SECRET', '')
 
 ##################################################
 
@@ -132,7 +133,3 @@ while True:
         print(coitime + ' ' + 'an error occured & retrying now')
     # Repeat the code every 1.5 minute
     time.sleep(60)
-
-
-
-    

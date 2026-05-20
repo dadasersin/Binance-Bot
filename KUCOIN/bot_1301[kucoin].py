@@ -1,19 +1,21 @@
 # kucoin(pip install kucoin-python) -- bolt1304
 
-api_key = ''
-api_secret = ''
-api_passphrase = ''
-eth_acc = ''
-kcs_acc = ''
-btc3l_acc = ''
-
-asset = 'BTC'
-fiat = 'USDT'
-
+import os
 import time
 import numpy as np
 import pandas as pd
 import datetime as DT
+
+api_key = os.getenv('KUCOIN_API_KEY', '')
+api_secret = os.getenv('KUCOIN_API_SECRET', '')
+api_passphrase = os.getenv('KUCOIN_API_PASSPHRASE', '')
+eth_acc = os.getenv('KUCOIN_ETH_ACC', '')
+kcs_acc = os.getenv('KUCOIN_KCS_ACC', '')
+btc3l_acc = os.getenv('KUCOIN_BTC3L_ACC', '')
+fiat_acc = os.getenv('KUCOIN_FIAT_ACC', '612a5bd4fdacf4000769936e')
+
+asset = 'BTC'
+fiat = 'USDT'
 
 print('----TIME-------------PRICE--RSI---STRATEGY')
 
@@ -32,7 +34,7 @@ while True:
 
         from kucoin.client import User
         client = User(api_key, api_secret, api_passphrase)
-        fiat_balance = client.get_account('612a5bd4fdacf4000769936e')
+        fiat_balance = client.get_account(fiat_acc)
         fiat_balance = fiat_balance['available']
         coin_balance = client.get_account(kcs_acc)
         coin_balance = coin_balance['available']
