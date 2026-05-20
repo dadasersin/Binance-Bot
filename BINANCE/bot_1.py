@@ -1,12 +1,13 @@
 # A very simple bot that buys and sells based on reference price changes.
 # The reference is set by 'winRate'
 
+import os
 from binance.client import Client
 from binance.enums import *
 import time
 
-api_key = ''
-api_secret = ''
+api_key = os.getenv('BINANCE_API_KEY', '')
+api_secret = os.getenv('BINANCE_API_SECRET', '')
 
 tradePair = 'BTCBUSD'
 client = Client(api_key, api_secret)
